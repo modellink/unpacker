@@ -28,8 +28,10 @@ def dig(archive_path, depth=0):
                 if i > 9:
                     break
                 next_file = io.BytesIO(zip_ref.read(zip_file))
-                dig(next_file, depth+1)
+                dig(next_file, depth + 1)
         else:
+            if not os.path.isdir(directory_to_extract_to):
+                os.makedirs(directory_to_extract_to)
             with open(directory_to_extract_to + '\\' + files_list, 'w') as output_file:
                 print(zip_ref.infolist()[0].filename)
                 for file in zip_ref.infolist():
